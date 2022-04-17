@@ -78,12 +78,16 @@ function Mod_OnGameOver()
 end
 
 function Mod_OnEntityKilled(context)
-	local suicide = context.victim == context.killer
+	local unit = context.victim
+	local suicide = unit == context.killer
 	if not suicide then
 		return
 	end
+	local villager = Entity_IsOfType(unit, "villager")
+	if not villager then
+		return
+	end
 	local owner = context.victimOwner
-	local sq = context.victimSquad
 	local id = Player_GetID(owner)
 	local current = price[id] == nil and 0 or price[id]
 	price[id] = current + 1
