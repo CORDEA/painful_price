@@ -34,6 +34,8 @@ Core_RegisterModule(_mod.module)
 -- Scripting framework 
 -----------------------------------------------------------------------
 
+local price = {}
+
 -- Called during load as part of the game setup sequence
 function Mod_OnGameSetup()
 	
@@ -51,9 +53,7 @@ end
 
 -- Called on match initialization before handing control to the player
 function Mod_OnInit()
-	
-	
-	
+	Rule_AddGlobalEvent(Mod_OnEntityKilled, GE_EntityKilled)
 end
 
 -- Called after initialization is done when game is fading up from black
@@ -75,4 +75,16 @@ function Mod_OnGameOver()
 	
 	
 	
+end
+
+function Mod_OnEntityKilled(context)
+	local suicide = context.victim == context.killer
+	if not suicide then
+		return
+	end
+	local owner = context.victimOwner
+	local sq = context.victimSquad
+	local id = Player_GetID(owner)
+	local current = price[id] == nil and 0 or price[id]
+	price[id] = current + 1
 end
