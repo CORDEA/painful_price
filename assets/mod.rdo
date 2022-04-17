@@ -1,0 +1,28 @@
+<DataWarehouse>
+	<!--painful_price/-->
+	<DataObject Name="painful_price" Type="Mod" Id="6485185620013186691" Version="1">
+		<DataProperty Name="m_description" Type="Object">
+			<DataValue Name="util::ReflectLocString">17913748579234835471</DataValue>
+			<!--painful_price/util::ReflectLocString/-->
+			<DataObject Name="" Type="util::ReflectLocString" Id="17913748579234835471" OwnerId="6485185620013186691">
+				<DataProperty Name="m_modPart2" Type="UInt32" Value="692614827"/>
+				<DataProperty Name="m_modPart3" Type="UInt32" Value="1565865308"/>
+				<DataProperty Name="m_modPart0" Type="UInt32" Value="3036841973"/>
+				<DataProperty Name="m_modPart1" Type="UInt32" Value="1284204577"/>
+				<DataProperty Name="m_locStringKey" Type="Int32" Value="2"/>
+			</DataObject>
+		</DataProperty>
+		<DataProperty Name="m_name" Type="Object">
+			<DataValue Name="util::ReflectLocString">12706478343319872590</DataValue>
+			<!--painful_price/util::ReflectLocString/-->
+			<DataObject Name="" Type="util::ReflectLocString" Id="12706478343319872590" OwnerId="6485185620013186691">
+				<DataProperty Name="m_modPart2" Type="UInt32" Value="692614827"/>
+				<DataProperty Name="m_modPart3" Type="UInt32" Value="1565865308"/>
+				<DataProperty Name="m_modPart0" Type="UInt32" Value="3036841973"/>
+				<DataProperty Name="m_modPart1" Type="UInt32" Value="1284204577"/>
+				<DataProperty Name="m_locStringKey" Type="Int32" Value="1"/>
+			</DataObject>
+		</DataProperty>
+	</DataObject>
+</DataWarehouse>
+
