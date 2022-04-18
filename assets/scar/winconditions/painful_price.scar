@@ -34,6 +34,7 @@ Core_RegisterModule(_mod.module)
 -- Scripting framework 
 -----------------------------------------------------------------------
 
+local threshold = 50
 local price = {}
 
 -- Called during load as part of the game setup sequence
@@ -54,6 +55,13 @@ end
 -- Called on match initialization before handing control to the player
 function Mod_OnInit()
 	Rule_AddGlobalEvent(Mod_OnEntityKilled, GE_EntityKilled)
+
+	for _, player in pairs(PLAYERS) do
+		-- This is not a number.
+		local id = player.id
+		local code = Mod_ResolveRaceCode(id)
+		Squad_Precache(Mod_GetManatarms(code), 0, id, "", "", "")
+	end
 end
 
 -- Called after initialization is done when game is fading up from black
@@ -91,4 +99,43 @@ function Mod_OnEntityKilled(context)
 	local id = Player_GetID(owner)
 	local current = price[id] == nil and 0 or price[id]
 	price[id] = current + 1
+	if current < threshold then
+		return
+	end
+
+	local group = "squad_" .. current .. tostring(id)
+	local sgroup = SGroup_CreateIfNotFound(group)
+	local position = Player_GetStartingPosition(owner)
+	local code = Mod_ResolveRaceCode(owner)
+	UnitEntry_DeploySquads(
+		owner,
+		sgroup,
+		{{sbp = Mod_GetManatarms(code), numSquads = 4}},
+		position
+	)
+end
+
+local race_table = {
+	abbasid = "abb",
+	chinese = "chi",
+	english = "eng",
+	french = "fre",
+	hre = "hre",
+	mongol = "mon",
+	rus = "rus",
+	sultanate = "sul",
+}
+
+function Mod_ResolveRaceCode(player)
+	local name = Player_GetRaceName(player)
+	for k, v in pairs(race_table) do
+		if k == name then
+			return v
+		end
+	end
+	error("Receives unknown code.")
+end
+
+function Mod_GetManatarms(code)
+	return BP_GetSquadBlueprint("unit_manatarms_4_" .. code)
 end
